@@ -5,7 +5,7 @@ import PlayerForm from './components/PlayerForm'
 
 
 
-const gameStatusSchema ={ 
+/*const gameStatusSchema ={ 
   gameStarted:false,
   gameOver:false,
   leader:"",
@@ -16,17 +16,36 @@ const gameStatusSchema ={
   winner:"",
   totalMoves:0,
 }
-
+*/
 
 
 
 export const GameContext = createContext() 
 
 
+//esta es la estructura que queria usar
+/*
+
+const playersInitialState= {
+        player1:{
+          name:"",
+          score: 0,
+          gamePrevalence:0,
+          responseCapability:0,
+          lastAttemptsSaved:0,
+        }
+          player2:{
+            name:"",
+            score: 0,
+            gamePrevalence:0,
+            responseCapability:0,
+            lastAttemptsSaved:0,
+          }
+  }
+*/
 
 
-
-
+// esta es la estructura que estoy usando
   const playersInitialState= {
         p1name:"",
         p1score: 0,
