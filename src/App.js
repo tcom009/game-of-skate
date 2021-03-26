@@ -58,8 +58,8 @@ export const GameContext = createContext()
   //const [player2, dispatch] = useReducer (PlayersReducer, playersInitialState)
   return (
     <GameContext.Provider value={{ playerState: state ,playerDispatch : dispatch} }>
+      Los jugadores son {state.p1name} y {state.p2name}
         <PlayerForm/>
-    Los jugadores son {state.p1name} y {state.p2name}
     
     </GameContext.Provider>
     );
