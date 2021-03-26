@@ -1,0 +1,76 @@
+import React , { useState, useContext } from 'react'
+import { GameContext } from '../App.js'
+
+
+function PlayerForm (){
+
+    const [player1, setPlayer1] = useState("");
+    const [player2, setPlayer2] = useState("");
+    const [notValid, setNotValid] =useState(false);
+    const gameContext = useContext(GameContext)
+    var dispatch=gameContext.playerDispatch 
+    const validateForm = () => {
+      if (player1 === "" || player1 === player2 || player2 === "") {
+        setNotValid(true);
+        setPlayer1("");
+        setPlayer2("");
+      } else {
+        setNotValid(false);
+        console.log (player1 , player2)
+        dispatch ({type:"setPlayer1Name" , value:player1})
+        dispatch ({type:"setPlayer2Name" , value:player2})
+        // props.startGame(player1, player2);//set this on general context 
+      }
+    };
+  
+    return (
+        <div className="container">
+            {notValid=== true &&(
+            <div className="columns">
+            <div className="column">
+            <article className="message is-warning">
+  <div className="message-header">
+    <p>Cuidado!</p>
+    <button className="delete" aria-label="delete"></button>
+  </div>
+  <div className="message-body">
+    Los nombres no pueden ser iguales
+  </div>
+</article>
+             </div>
+            </div>    
+            )
+        }
+            <div className="columns">
+           <div className="column">
+                <label className="label">Jugador 1</label>
+            <div className="control">
+                <input className="input" value={player1}onChange={(e)=> 
+                  setPlayer1 (e.target.value.toUpperCase())}type="text" placeholder="Text input"/>
+           </div>
+            </div>
+                </div> 
+                <div className="columns"> 
+                <div className="column">
+
+            <label className="label">Jugador 2</label>
+            <div className="control">
+                <input className="input" value={player2} onChange={(e)=> 
+                   setPlayer2(e.target.value.toUpperCase())} type="text" placeholder="Text input"/>
+                </div>
+                </div>
+            </div>
+            <div className="columns"> 
+                <div className="column">
+
+            <button onClick={validateForm} className= "button is-primary"> Iniciar Juego</button>
+                </div>
+            </div>
+            </div>
+    )
+
+}
+
+
+
+export default PlayerForm
