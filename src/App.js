@@ -18,42 +18,22 @@ import GameView from "./components/GameView";
 
 export const GameContext = createContext();
 
-//esta es la estructura que queria usar
-/*
-
-const playersInitialState= {
-        player1:{
-          name:"",
-          score: 0,
-          gamePrevalence:0,
-          responseCapability:0,
-          lastAttemptsSaved:0,
-        }
-          player2:{
-            name:"",
-            score: 0,
-            gamePrevalence:0,
-            responseCapability:0,
-            lastAttemptsSaved:0,
-          }
-  }
-*/
-
-// esta es la estructura que estoy usando
+//About state keys
+//Prevalence: this key counts how many times the player has the domain of the game
+//Response: this key counts how many times the player responces a landed trick to the oppenent
+//LastAttempSaved: this key counts how many times the player responces a trick in the second
+//attempt on the last Letter
 const playersInitialState = {
 	p1name: "",
-	p1score: 1,
+	p1score: 0,
 	p1gamePrevalence: 0,
 	p1responseCapability: 0,
 	p1lastAttemptsSaved: 0,
 	p2name: "",
-	p2score: 1,
+	p2score: 0,
 	p2gamePrevalence: 0,
 	p2responseCapability: 0,
 	p2lastAttemptsSaved: 0,
-	player1: {
-		name: "",
-	},
 };
 
 const gameStatus = {
@@ -83,7 +63,7 @@ function GameReducer(state, action) {
 	switch (action.type) {
 		case "startGame":
 			return { ...state, gameStarted: true };
-		case "message":
+		case "":
 			return { ...state, message: action.value };
 		default:
 			return state;
