@@ -8,7 +8,8 @@ function PlayerForm (){
     const [player2, setPlayer2] = useState("");
     const [notValid, setNotValid] =useState(false);
     const gameContext = useContext(GameContext)
-    var dispatch=gameContext.playerDispatch 
+    var dispatchPlayer=gameContext.playerDispatch
+    var dispatchGame=gameContext.gameDispatch 
     const validateForm = () => {
       if (player1 === "" || player1 === player2 || player2 === "") {
         setNotValid(true);
@@ -17,9 +18,10 @@ function PlayerForm (){
       } else {
         setNotValid(false);
         console.log (player1 , player2)
-        dispatch ({type:"setPlayer1Name" , value:player1})
-        dispatch ({type:"setPlayer2Name" , value:player2})
-        // props.startGame(player1, player2);//set this on general context 
+        dispatchPlayer ({type:"setPlayer1Name" , value:player1})
+        dispatchPlayer ({type:"setPlayer2Name" , value:player2})
+        dispatchGame ({type:"startGame" })
+        dispatchGame ({type:"message" , value: "mostrando mensaje" })
       }
     };
   
