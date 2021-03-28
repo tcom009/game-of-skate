@@ -6,8 +6,7 @@ function PlayerForm() {
   const [player2, setPlayer2] = useState("");
   const [notValid, setNotValid] = useState(false);
   const gameContext = useContext(GameContext);
-  var playerDispatch = gameContext.playerDispatch;
-  var gameDispatch = gameContext.gameDispatch;
+  const { playerDispatch, gameDispatch } = gameContext;
 
   const pickPlayer = () => {
     console.log("Seleccionando Jugador");
