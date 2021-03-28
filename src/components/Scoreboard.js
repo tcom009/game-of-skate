@@ -1,19 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { GameContext } from "../App.js";
-
+import { FailDisabledButton, LandedDisabledButton } from "./DisabledButtons";
 function Scoreboard(params) {
   const gameContext = useContext(GameContext);
   const playerDispatch = gameContext.playerDispatch;
-  const dispatchP1 = () => playerDispatch({ type: "setP1Score", value: 1 });
-  const dispatchP2 = () => playerDispatch({ type: "setP2Score", value: 1 });
-  const selectPlayerDispatch = () =>
-    params.player === gameContext.playerState.p1name ? dispatchP1() : dispatchP2()
+  const dispatchP1 = (val) =>
+    playerDispatch({ type: "setP1Score", value: val });
+  const dispatchP2 = (val) =>
+    playerDispatch({ type: "setP2Score", value: val });
+  let activePlayer = gameContext.gameState.activePlayer;
+
+  const selectPlayerDispatch = (val) =>
+    params.player === gameContext.playerState.p1name
+      ? dispatchP1(val)
+      : dispatchP2(val);
 
   return (
     <div className="container">
       <div className="columns">
-    	<div className="column">
-          <p>{params.player}</p>
+        <div className="column">
+          <p>
+            {params.player}
+            {params.leader === params.player && (
+              <span role="img" aria-label="emoj">
+                {" "}
+                👑{" "}
+              </span>
+            )}
+          </p>
         </div>
       </div>
       <div className="columns">
@@ -25,21 +39,29 @@ function Scoreboard(params) {
       </div>
       <div className="columns">
         <div className="column">
-          <button
-            className="button is-primary"
-            onClick={()=>selectPlayerDispatch()}
-          >
-            Aterrizado!
-          </button>
+          {activePlayer === params.player ? (
+            <button
+              className="button is-success"
+              onClick={() => selectPlayerDispatch(1)}
+            >
+              Aterrizado!
+            </button>
+          ) : (
+            <LandedDisabledButton />
+          )}
         </div>
 
         <div className="column">
-          <button
-            className="button is-danger"
-            // onClick={() => selectPlayerDispatch()}
-          >
-            Fallido!
-          </button>
+          {activePlayer === params.player ? (
+            <button
+              className="button is-danger"
+              onClick={() => selectPlayerDispatch(-1)}
+            >
+              Fallido!
+            </button>
+          ) : (
+            <FailDisabledButton />
+          )}
         </div>
       </div>
     </div>

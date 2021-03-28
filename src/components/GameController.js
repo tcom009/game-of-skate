@@ -1,11 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React from "react";
 
+function GameController() {}
 
-function GameController (){
-
-
-
-}
-
-
-export default GameController
+export default GameController;

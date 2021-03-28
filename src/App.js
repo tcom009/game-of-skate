@@ -29,8 +29,7 @@ const gameStatus = {
   gameOver: false,
   leader: "",
   activePlayer: "",
-  button1Disabled: false, //take disabling decition on the component
-  button2Disabled: false,
+  buttonDisabled: "",
   lastAttpemt: 0,
   winner: "",
   totalMoves: 0,
@@ -55,8 +54,10 @@ function GameReducer(state, action) {
   switch (action.type) {
     case "startGame":
       return { ...state, gameStarted: true };
-    case "":
-      return { ...state, message: action.value };
+    case "setLeader":
+      return { ...state, leader: action.value };
+    case "setActivePlayer":
+      return { ...state, activePlayer: action.value };
     default:
       return state;
   }
