@@ -4,7 +4,6 @@ import GameScoresView from "./GameScoresView";
 import HourGlassSpinner from "./HourGlassSpinner";
 function GameView() {
   const [animationEnded, setAnimationEnded] = useState(false);
-
   useEffect(() => {
     setTimeout(() => setAnimationEnded(true), 2000);
   });

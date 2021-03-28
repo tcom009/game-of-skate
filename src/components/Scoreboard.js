@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { GameContext } from "../App.js";
 import { FailDisabledButton, LandedDisabledButton } from "./DisabledButtons";
 function Scoreboard(params) {
