@@ -47,8 +47,8 @@ function PlayerForm (){
            <div className="column">
                 <label className="label">Jugador 1</label>
             <div className="control">
-                <input className="input" value={player1}onChange={(e)=> 
-                  setPlayer1 (e.target.value.toUpperCase())}type="text" placeholder="Text input"/>
+                <input className="input" placeholder="Sello"value={player1}onChange={(e)=> 
+                  setPlayer1 (e.target.value.toUpperCase())}type="text"/>
            </div>
             </div>
                 </div> 
@@ -57,8 +57,8 @@ function PlayerForm (){
 
             <label className="label">Jugador 2</label>
             <div className="control">
-                <input className="input" value={player2} onChange={(e)=> 
-                   setPlayer2(e.target.value.toUpperCase())} type="text" placeholder="Text input"/>
+                <input className="input" placeholder="Cara"value={player2} onChange={(e)=> 
+                   setPlayer2(e.target.value.toUpperCase())} type="text"/>
                 </div>
                 </div>
             </div>

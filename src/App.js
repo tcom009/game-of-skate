@@ -3,19 +3,6 @@ import "./App.css";
 import PlayerForm from "./components/PlayerForm";
 import GameView from "./components/GameView";
 
-/*const gameStatusSchema ={ 
-  gameStarted:false,
-  gameOver:false,
-  leader:"",
-  activePlayer:"",
-  button1Disabled:false,
-  button2Disabled:false,
-  lastAttpemt:0,
-  winner:"",
-  totalMoves:0,
-}
-*/
-
 export const GameContext = createContext();
 
 //About state keys
@@ -23,71 +10,76 @@ export const GameContext = createContext();
 //Response: this key counts how many times the player responces a landed trick to the oppenent
 //LastAttempSaved: this key counts how many times the player responces a trick in the second
 //attempt on the last Letter
+
 const playersInitialState = {
-	p1name: "",
-	p1score: 0,
-	p1gamePrevalence: 0,
-	p1responseCapability: 0,
-	p1lastAttemptsSaved: 0,
-	p2name: "",
-	p2score: 0,
-	p2gamePrevalence: 0,
-	p2responseCapability: 0,
-	p2lastAttemptsSaved: 0,
+  p1name: "",
+  p1score: 0,
+  p1gamePrevalence: 0,
+  p1responseCapability: 0,
+  p1lastAttemptsSaved: 0,
+  p2name: "",
+  p2score: 0,
+  p2gamePrevalence: 0,
+  p2responseCapability: 0,
+  p2lastAttemptsSaved: 0,
 };
 
 const gameStatus = {
-	gameStarted: false,
-	gameOver: false,
-	leader: "",
-	activePlayer: "",
-	button1Disabled: false,
-	button2Disabled: false,
-	lastAttpemt: 0,
-	winner: "",
-	totalMoves: 0,
+  gameStarted: false,
+  gameOver: false,
+  leader: "",
+  activePlayer: "",
+  button1Disabled: false, //take disabling decition on the component
+  button2Disabled: false,
+  lastAttpemt: 0,
+  winner: "",
+  totalMoves: 0,
 };
 
 function PlayersReducer(state, action) {
-	switch (action.type) {
-		case "setPlayer1Name":
-			return { ...state, p1name: action.value };
-		case "setPlayer2Name":
-			return { ...state, p2name: action.value };
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case "setPlayer1Name":
+      return { ...state, p1name: action.value };
+    case "setPlayer2Name":
+      return { ...state, p2name: action.value };
+    case "setP1Score":
+      return { ...state, p1score: state.p1score + action.value };
+    case "setP2Score":
+      return { ...state, p2score: state.p2score + action.value };
+    default:
+      return state;
+  }
 }
 
 function GameReducer(state, action) {
-	switch (action.type) {
-		case "startGame":
-			return { ...state, gameStarted: true };
-		case "":
-			return { ...state, message: action.value };
-		default:
-			return state;
-	}
+  switch (action.type) {
+    case "startGame":
+      return { ...state, gameStarted: true };
+    case "":
+      return { ...state, message: action.value };
+    default:
+      return state;
+  }
 }
 
 function App() {
-	const [playerState, playerDispatch] = useReducer(
-		PlayersReducer,
-		playersInitialState
-	);
-	const [gameState, gameDispatch] = useReducer(GameReducer, gameStatus);
-	return (
-		<GameContext.Provider
-			value={{
-				playerState: playerState,
-				playerDispatch: playerDispatch,
-				gameState: gameState,
-				gameDispatch: gameDispatch,
-			}}
-		>
-			{gameState.gameStarted ? <GameView /> : <PlayerForm />}
-		</GameContext.Provider>
-	);
+  const [playerState, playerDispatch] = useReducer(
+    PlayersReducer,
+    playersInitialState
+  );
+  const [gameState, gameDispatch] = useReducer(GameReducer, gameStatus);
+  return (
+    <GameContext.Provider
+      value={{
+        playerState: playerState,
+        playerDispatch: playerDispatch,
+        gameState: gameState,
+        gameDispatch: gameDispatch,
+      }}
+    >
+      {gameState.gameStarted ? <GameView /> : <PlayerForm />}
+    </GameContext.Provider>
+  );
 }
 
 export default App;
