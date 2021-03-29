@@ -71,9 +71,11 @@ function GameReducer(state, action) {
 		case "setActivePlayer":
 			return { ...state, activePlayer: action.value };
 		case "setLastAttempt":
-			return { ...state, lastAttpemt: !state.lastAttpemt };
+			return { ...state, lastAttempt: action.value };
 		case "setTotalMoves":
 			return { ...state, totalMoves: state.totalMoves + 1 };
+		case "setGameOver":
+			return { ...state, gameOver: true };
 		default:
 			return state;
 	}

@@ -1,17 +1,16 @@
 import React, { useContext } from "react";
 import { GameContext } from "../App.js";
 import { FailDisabledButton, LandedDisabledButton } from "./DisabledButtons";
-import StatusDisplay from "./StatusDisplay";
 
 function Scoreboard(params) {
 	const gameContext = useContext(GameContext);
 	const {
 		playerDispatch,
 		gameDispatch,
-		gameState: { activePlayer, leader, lastAttempt },
+		gameState: { activePlayer, leader, lastAttempt, gameOver },
 		playerState: { p1name, p1score, p2name, p2score },
 	} = gameContext;
-	//dispatch method selector
+	//dispatch method selector selects the dispatch for the scoreboard associated player
 	const playerSelect = () =>
 		params.player === p1name
 			? {
@@ -46,14 +45,15 @@ function Scoreboard(params) {
 	function isLanded() {
 		if (activePlayer === leader) {
 			playerDispatch({ type: prevalence });
+			setActive(slave);
 		} else if (activePlayer !== leader) {
 			playerDispatch({ type: response });
-			if (score > 3 && lastAttempt === true) {
-				console.log(`${params.player} has salvado el ultimo truco`);
-				gameDispatch({ type: "setLastAttempt" });
+			setActive(slave);
+			if (score > 3 && lastAttempt) {
+				gameDispatch({ type: "setLastAttempt", value: false });
 				playerDispatch({ type: response });
 				playerDispatch({ type: lastAttemptSaved });
-				//setPlayerResponseCapability(active);
+				setActive(slave);
 			}
 		}
 	}
@@ -62,29 +62,25 @@ function Scoreboard(params) {
 		if (activePlayer === leader) {
 			gameDispatch({ type: "setLeader", value: slave });
 			gameDispatch({ type: "setTotalMoves" });
-		} else if (activePlayer !== leader && score > 3 && lastAttempt === true) {
-			playerDispatch({ type: setScore });
+			setActive(slave);
+		} else if (activePlayer !== leader && score > 3 && lastAttempt) {
 			playerDispatch({ type: setScore });
 			gameDispatch({ type: "setWinner", value: slave });
 			gameDispatch({ type: "setGameOver" });
 			//uploadData();
 		} else if (activePlayer !== leader && score > 3) {
-			gameDispatch({ type: "setLastAttempt" });
+			gameDispatch({ type: "setLastAttempt", value: true });
+			gameDispatch({ type: "setActivePlayer", value: player });
+			setActive(player);
 		} else if (activePlayer !== leader) {
 			playerDispatch({ type: setScore });
 			gameDispatch({ type: "setTotalMoves" });
+			setActive(slave);
 		}
 	}
 
-	const disableButtons = () => {
-		if (!lastAttempt) {
-			params.player === gameContext.playerState.p1name
-				? gameDispatch({ type: "setActivePlayer", value: p2name })
-				: gameDispatch({ type: "setActivePlayer", value: p1name });
-		} else {
-			gameDispatch({ type: "setActivePlayer", value: player });
-		}
-	};
+	const setActive = (val) =>
+		gameDispatch({ type: "setActivePlayer", value: val });
 
 	return (
 		<div className="container">
@@ -111,12 +107,12 @@ function Scoreboard(params) {
 			<div className="columns">
 				<div className="column">
 					{/*Bloquear botones */}
-					{activePlayer === params.player ? (
+					{activePlayer === params.player && !gameOver ? (
 						<button
 							className="button is-success"
 							onClick={function () {
-								disableButtons();
 								isLanded();
+								//disableButtons();
 							}}
 						>
 							Aterrizado!
@@ -127,12 +123,12 @@ function Scoreboard(params) {
 				</div>
 
 				<div className="column">
-					{activePlayer === params.player ? (
+					{activePlayer === params.player && !gameOver ? (
 						<button
 							className="button is-danger"
 							onClick={function () {
-								disableButtons();
 								isFailed();
+								//disableButtons();
 							}}
 						>
 							Fallido!

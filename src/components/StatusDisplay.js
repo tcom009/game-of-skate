@@ -5,6 +5,7 @@ import { GameContext } from "../App.js";
 function StatusDisplay() {
 	const gameContext = useContext(GameContext);
 	const {
+		gameState: { lastAttempt },
 		playerState: {
 			p1name,
 			p1score,
@@ -40,6 +41,21 @@ function StatusDisplay() {
 								<th>Response</th>
 								<td>{p1responseCapability}</td>
 								<td>{p2responseCapability}</td>
+							</tr>
+							<tr>
+								<th>Score</th>
+								<td>{p1score}</td>
+								<td>{p2score}</td>
+							</tr>
+							<tr>
+								<th>Last Attempts Saved</th>
+								<td>{p1lastAttemptsSaved}</td>
+								<td>{p2lastAttemptsSaved}</td>
+							</tr>
+
+							<tr>
+								<th>Last Attemp?</th>
+								<td>{lastAttempt ? "Yes" : "No"}</td>
 							</tr>
 						</tbody>
 					</table>
