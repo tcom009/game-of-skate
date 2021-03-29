@@ -1,3 +1,42 @@
+Game of S.K.A.T.E Scoreboard 
+
+Hi!, this is a refactored version of my Game of S.K.A.T.E (GOS) Scoreboard, prev version is running on http://chaosfingershop.com/gameofskate
+
+GOS is a popular game in the skateboarding and fingerboarding environment, it requires at least 2 players to be played
+How to play a GOS?
+Here are the rules and steps to start a traditional GOS:
+1.- Choose the initial player (you can play paper, siccors, rock, but this score board selects a random odd(player2) or even (player1) to start the game
+2.The initial player is set as "leader" (in this app the leader has a crown next to his name)and starts by saying a trick and doing it, if the player lands the trick the other player must repeat it.
+3.If the other player fails on repeating leader's trick it would recieve an letter until he completes the word SKATE
+4.If the "leader" says a trick and fails it, he automatically losses the leader position and it's time for the other player to be the leader.
+5.The player(wich is not leader) gets 2 attempts in the last letter ("S.K.A.T")
+6.If the player fails in the two attempst lost the game, and if he saves it in the last attempt, he keeps in the game (and also gets one point in "last attemps saved" statistics.
+
+
+
+This app also recolects statistics of the game that are difficult to recolect by hand 
+
+Here is a detailed list of the statistics recolected by the game:
+
+Prevalence: this key counts how many times the player has the domain of the game
+Response: this key counts how many times the player responces a landed trick to the oppenent
+LastAttempSaved: this key counts how many times the player responces a trick in the second
+attempt on the last Letter
+
+About the architecture of the code:
+
+I've used no externa libraries for state management, instead of that I used the useContext and useReducer built in hooks (from ReactJS)
+Main state and reducers are contained on App.js at the moment.
+Scoreboard component gots the rules of the game detailed above
+
+
+This is all at this point 
+
+Styles and responsive behavior isn't done yet and it's gonna be ready on next releases
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
